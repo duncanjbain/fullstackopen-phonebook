@@ -6,6 +6,7 @@ const Person = require("./models/person");
 
 const app = express();
 
+
 app.use(cors());
 app.use(express.json());
 app.use(express.static("build"));
@@ -40,13 +41,14 @@ app.get("/api/persons/:id", (req, res, next) => {
     .catch((error) => next(error));
 });
 
+
 app.put("/api/persons/:id", (req, res, next) => {
   const person = {
     name: req.body.name,
     number: req.body.number,
   };
 
-  Person.findByIdAndUpdate(req.params.id, person, { new: true })
+  Person.findByIdAndUpdate(req.params.id, person, { new: true, runValidators: true  })
     .then((updatedPerson) => {
       res.json(updatedPerson);
     })
