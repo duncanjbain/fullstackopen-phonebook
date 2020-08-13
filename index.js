@@ -67,11 +67,12 @@ app.delete("/api/persons/:id", (req, res, next) => {
 });
 
 app.get("/api/info", (req, res) => {
-  const phonebookSize = persons.length;
+  Person.countDocuments({}).then(result => {;
   const currentDate = new Date();
   res.send(
-    `The Phonebook has ${phonebookSize} entries and the time is ${currentDate}`
-  );
+    `The Phonebook has ${result} entries and the time is ${currentDate}`
+  )
+  });
 });
 
 app.post("/api/persons", (req, res) => {
